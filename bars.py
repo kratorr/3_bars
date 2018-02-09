@@ -1,3 +1,4 @@
+import sys
 import json
 import collections
 import geopy.distance
@@ -46,7 +47,7 @@ def get_closest_bar(decoded_json, longitude, latitude):
 
 if __name__ == '__main__':
     try:
-        #file_path = sys.argv[1]
+        file_path = sys.argv[1]
         file_path = "bars.json"
     except IndexError:
         print("Arguments error")
@@ -54,12 +55,9 @@ if __name__ == '__main__':
         bar_data = load_data(file_path)
         small_bar = get_smallest_bar(parse_json(bar_data))
         big_bar = get_biggest_bar(parse_json(bar_data))
-        print("Smallest bar: {}, Seats count: {} ".format(small_bar[0], small_bar[1]))
+        print("Smallest bar: {}, Seats count: {} ".format(small_bar[0], (small_bar[1])))
         print("Biggest bar: {}, Seats count: {}".format(big_bar[0], big_bar[1]))
-
         longitude = float(input("Enter longitude:"))
         latitude = float(input("Enter latitude:"))
         closest_bar = get_closest_bar(bar_data, longitude, latitude)
-        print("Smallest bar: {}, seats count: {} ".format(small_bar[0], small_bar[1]))
-        print("Biggest bar: {}, seats count: {}".format(big_bar[0], big_bar[1]))
         print("Closest bar: {}, distance: {:.3f} km".format(closest_bar[0], closest_bar[1]))
