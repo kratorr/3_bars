@@ -1,6 +1,6 @@
 # Ближайшие бары
 
-[FIXME. Здесь будет описание проекта]
+Программа выводит в консоль самый большой и малый бар, затем просит пользователя ввести координаты, затем выводит самый близжайший бар.
 
 # Как запустить
 
@@ -9,13 +9,13 @@
 Запуск на Linux:
 
 ```bash
-
-$ python bars.py # possibly requires call of python3 executive instead of just python
-# FIXME вывести пример ответа скрипта
-
+ $ python3 bars.py bars.json 
+Smallest bar: 0, Seats count: ['БАР. СОКИ', 'Соки', 'Фреш-бар', 'Бар в Деловом центре Яуза'] 
+Biggest bar: 450, Seats count: ['Спорт бар «Красная машина»']
+>>>Enter longitude: 33.54334212
+>>>Enter latitude:55.32314324
+Closest bar: Staropramen, distance: 372.408 km
 ```
-
-Запуск на Windows происходит аналогично.
 
 # Цели проекта
 
