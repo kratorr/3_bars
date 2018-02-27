@@ -56,7 +56,3 @@ if __name__ == "__main__":
                 closest_bar["properties"]["Attributes"]["Name"]))
         except ValueError:
             print("Value Error")
-
-
-
-
