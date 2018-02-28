@@ -9,52 +9,60 @@ def load_data(filepath):
     return decoded_json
 
 
-def get_smallest_bar(decoded_json):
+def get_bars_data(decoded_json):
+    bars_data = decoded_json["features"]
+    return bars_data
+
+
+def get_smallest_bar(bars_data):
     smallest_bar = min(
-        decoded_json["features"],
-        key=lambda x: x["properties"]["Attributes"]["SeatsCount"])
+        bars_data, key=lambda x: x["properties"]["Attributes"]["SeatsCount"]
+    )
     return smallest_bar
 
 
-def get_biggest_bar(decoded_json):
+def get_biggest_bar(bars_data):
     biggest_bar = max(
-        decoded_json["features"],
-        key=lambda x: x["properties"]["Attributes"]["SeatsCount"])
+        bars_data, key=lambda x: x["properties"]["Attributes"]["SeatsCount"]
+    )
     return biggest_bar
 
 
-def get_closest_bar(decoded_json, user_coordinates):
+def get_closest_bar(bars_data, user_coordinates):
     closest_bar = min(
-        decoded_json["features"],
-        key=lambda x: vincenty(
+        bars_data, key=lambda x: vincenty(
             user_coordinates, (x["geometry"]["coordinates"][0],
-                               x["geometry"]["coordinates"][1])).km)
+                               x["geometry"]["coordinates"][1])).km
+    )
     return closest_bar
+
+
+def pprint_bar(bar):
+    print("{}, Seats count:{}".format(
+        bar["properties"]["Attributes"]["Name"],
+        bar["properties"]["Attributes"]["SeatsCount"])
+    )
 
 
 if __name__ == "__main__":
     try:
         file_path = sys.argv[1]
+        bars_data = get_bars_data(load_data(file_path))
+    except FileNotFoundError:
+        exit("File not found")
     except IndexError:
-        print("Arguments error")
-    else:
-        bar_data = load_data(file_path)
-        small_bar = get_smallest_bar(bar_data)
-        big_bar = get_biggest_bar(bar_data)
-        print("Smallest bar: {}, Seats count:{}".format(
-            small_bar["properties"]["Attributes"]["Name"],
-            small_bar["properties"]["Attributes"]["SeatsCount"])
+        exit("Arguments error")
+    print("Smallest bar: ", end="")
+    pprint_bar(get_smallest_bar(bars_data))
+    print("Biggest bar: ", end="")
+    pprint_bar(get_biggest_bar(bars_data))
+    try:
+        longitude = float(input("Enter longitude:"))
+        latitude = float(input("Enter latitude:"))
+        user_coordinates = (longitude, latitude)
+        closest_bar = get_closest_bar(bars_data, user_coordinates)
+        print("Closest bar: {}".format(
+            closest_bar["properties"]["Attributes"]["Name"])
         )
-        print("Biggest bar: {}, Seats count:{}".format(
-            big_bar["properties"]["Attributes"]["Name"],
-            big_bar["properties"]["Attributes"]["SeatsCount"])
-        )
-        try:
-            longitude = float(input("Enter longitude:"))
-            latitude = float(input("Enter latitude:"))
-            user_coordinates = (longitude, latitude)
-            closest_bar = get_closest_bar(bar_data, user_coordinates)
-            print("Closest bar: {}".format(
-                closest_bar["properties"]["Attributes"]["Name"]))
-        except ValueError:
-            print("Value Error")
+    except ValueError:
+        print("Value Error")
