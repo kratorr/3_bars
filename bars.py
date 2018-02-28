@@ -48,15 +48,10 @@ if __name__ == "__main__":
     try:
         file_path = sys.argv[1]
         bars_data = get_bars_data(load_data(file_path))
-    except FileNotFoundError:
-        exit("File not found")
-    except IndexError:
-        exit("Arguments error")
-    print("Smallest bar: ", end="")
-    pprint_bar(get_smallest_bar(bars_data))
-    print("Biggest bar: ", end="")
-    pprint_bar(get_biggest_bar(bars_data))
-    try:
+        print("Smallest bar: ", end="")
+        pprint_bar(get_smallest_bar(bars_data))
+        print("Biggest bar: ", end="")
+        pprint_bar(get_biggest_bar(bars_data))
         longitude = float(input("Enter longitude:"))
         latitude = float(input("Enter latitude:"))
         user_coordinates = (longitude, latitude)
@@ -64,5 +59,10 @@ if __name__ == "__main__":
         print("Closest bar: {}".format(
             closest_bar["properties"]["Attributes"]["Name"])
         )
+    except FileNotFoundError:
+        exit("File not found")
+    except IndexError:
+        exit("Arguments error")
     except ValueError:
         print("Value Error")
+
