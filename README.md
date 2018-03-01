@@ -6,15 +6,17 @@
 
 1.  Скрипт требует для своей работы установленного интерпретатора Python версии 3.5
 2.  Установить зависимости из requirements.txt
-Запуск на Linux:
+3.  Загрузить файл с данными о барах из портала данных Москвы, по ссылке https://op.mos.ru/EHDWSREST/catalog/export/get?id=244260.
+4.  Разархивировать скачанный файл.
 
+Запуск на Linux:
 ```bash
  $ python3 bars.py bars.json 
 Smallest bar: 0, Seats count: ['БАР. СОКИ', 'Соки', 'Фреш-бар', 'Бар в Деловом центре Яуза'] 
 Biggest bar: 450, Seats count: ['Спорт бар «Красная машина»']
 >>>Enter longitude: 33.54334212
 >>>Enter latitude:55.32314324
-Closest bar: Staropramen, distance: 372.408 km
+Closest bar: Staropramen
 ```
 
 # Цели проекта
