@@ -4,9 +4,9 @@ from geopy.distance import vincenty
 
 
 def load_data(filepath):
-        with open(filepath, "r", encoding="utf-8") as json_file:
-            decoded_json = json.load(json_file)
-        return decoded_json
+    with open(filepath, "r", encoding="utf-8") as json_file:
+        decoded_json = json.load(json_file)
+    return decoded_json
 
 
 def get_bars_data(decoded_json):
@@ -65,10 +65,8 @@ if __name__ == "__main__":
             closest_bar["properties"]["Attributes"]["Name"]
             )
         )
-    except FileNotFoundError:
-        exit("File not found")
-    except IndexError:
-        exit("Arguments error")
+    except (FileNotFoundError, IndexError):
+        exit("File not found or not specified")
     except json.decoder.JSONDecodeError:
         exit("File not a JSON")
     except ValueError:
